@@ -1,0 +1,67 @@
+body {
+    margin: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+}
+
+.container {
+    position: relative;
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    z-index: 10;
+}
+
+/*
+   Overlay
+*/
+.bg__overlay {
+    background-color: rgba(0,0,0, 0.85);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: all 0.35s;
+}
+
+.bg__overlay.show, .modal__container.show {
+    opacity: 1;
+}
+
+
+
+/*
+    AJAX Modal
+*/
+.modal__container {
+    opacity: 0;
+    transition: all 0.35s;
+    background: #fff;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    margin: 10px;
+    transform: translate(-50%, 0%);
+}
+
+.modal__container.show {
+    z-index: 10;
+}
+
+.ajax__content {
+    padding: 10px 25px 30px 25px;
+}
+
+.btn--close-ajax {
+    position: absolute;
+    top: -25px;
+    right: 5px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.btn--close-ajax:hover {
+    text-decoration: underline;
+}

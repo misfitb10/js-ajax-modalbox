@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript AJAX Modal</title>
+
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>JavaScript AJAX Modal</h1>
+        </header>
+
+        <main>
+            <p>Bonita la <a href="#" class="btn--ajax" data-content="ajax-content.html">vida</a>.</p>
+        </main>
+    </div>
+
+    <div class="bg__overlay"></div>
+    <div class="modal__container">
+        <!-- AJAX content loads in here -->
+    </div>
+
+    <script>
+        (function() {
+            var btnLoadAjax = document.querySelector(".btn--ajax");
+            var btnCloseBubble = document.querySelector(".modal__container");
+            var btnCloseAjax = document.querySelector(".btn--close-ajax");
+            var modalContainer = document.querySelector(".modal__container");
+            var bgOverlay = document.querySelector(".bg__overlay");
+
+            if (btnLoadAjax) {
+                btnLoadAjax.addEventListener("click", function(event) {
+                    event.preventDefault();
+                    loadAJAXContent();
+                });
+            }
+
+            btnCloseBubble.addEventListener("click", function(event) {
+                event.preventDefault();
+                if (event.target.className === "btn--close-ajax") {
+                    bgOverlay.classList.remove("show");
+                    modalContainer.classList.remove("show");
+                }
+            });
+
+            function loadAJAXContent() {
+                var httpRequest = new XMLHttpRequest();
+                var ajaxContent = btnLoadAjax.dataset.content;
+
+                httpRequest.onreadystatechange = function() {
+                    if (httpRequest.readyState == XMLHttpRequest.DONE) {
+                        if (httpRequest.status == 200) {
+                            bgOverlay.classList.add("show");
+                            modalContainer.classList.add("show");
+                            modalContainer.innerHTML = httpRequest.responseText;
+                        }
+                    }
+                };
+
+                httpRequest.open("GET", ajaxContent, true);
+                httpRequest.send();
+            }
+        })();
+    </script>
+</body>
+</html>
